@@ -1,10 +1,17 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
-  height: 100vh;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffe6eb, #fff5e4);
+  align-items: flex-start;
+  background: linear-gradient(135deg, #dbeafe, #c7d2fe);
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -14,9 +21,9 @@ body {
 
 .envelope {
   position: relative;
-  width: 320px;
+  width: 360px;
   height: 220px;
-  background: #f8c8dc;
+  background: #3b82f6;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.6s;
@@ -29,35 +36,82 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  background: #f4a6c1;
+  background: #2563eb;
   clip-path: polygon(0 0, 50% 50%, 100% 0);
   transition: transform 0.6s ease;
   transform-origin: top;
   z-index: 3;
 }
 
-/* Carta branca */
+/* Carta azul */
 .letter {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
   height: 0;
-  background: #fffafc;
-  border-radius: 12px;
+  background: #eff6ff;
+  border-radius: 0 0 12px 12px;
   padding: 20px;
   box-sizing: border-box;
   overflow: hidden;
   transition: height 0.6s ease;
-  text-align: center;
+  text-align: left;
   z-index: 2;
 }
 
-/* Conteúdo da mensagem */
-.message {
-  opacity: 0;
-  transition: opacity 0.4s ease 0.3s;
+/* Flutuação do envelope antes de abrir */
+@keyframes floatEnvelope {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
 }
+
+.envelope:not(.open) {
+  animation: floatEnvelope 3s ease-in-out infinite;
+}
+
+.envelope:not(.open):hover {
+  box-shadow: 0 14px 40px rgba(37, 99, 235, 0.5);
+  filter: brightness(1.08);
+}
+
+/* Conteúdo da mensagem */
+.message > * {
+  opacity: 0;
+}
+
+/* Entrada escalonada dos elementos */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes titleEnter {
+  from { opacity: 0; transform: scale(0.85) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+.envelope.open .message > * {
+  animation: slideInLeft 0.45s ease forwards;
+}
+
+.envelope.open .message > h2 {
+  animation: titleEnter 0.5s ease forwards;
+}
+
+.envelope.open .message > *:nth-child(1)  { animation-delay: 0.60s; }
+.envelope.open .message > *:nth-child(2)  { animation-delay: 0.72s; }
+.envelope.open .message > *:nth-child(3)  { animation-delay: 0.84s; }
+.envelope.open .message > *:nth-child(4)  { animation-delay: 0.96s; }
+.envelope.open .message > *:nth-child(5)  { animation-delay: 1.08s; }
+.envelope.open .message > *:nth-child(6)  { animation-delay: 1.20s; }
+.envelope.open .message > *:nth-child(7)  { animation-delay: 1.32s; }
+.envelope.open .message > *:nth-child(8)  { animation-delay: 1.44s; }
+.envelope.open .message > *:nth-child(9)  { animation-delay: 1.56s; }
+.envelope.open .message > *:nth-child(10) { animation-delay: 1.68s; }
+.envelope.open .message > *:nth-child(11) { animation-delay: 1.80s; }
+.envelope.open .message > *:nth-child(12) { animation-delay: 1.92s; }
+.envelope.open .message > *:nth-child(13) { animation-delay: 2.04s; }
 
 /* Quando abrir */
 .envelope.open .flap {
@@ -66,16 +120,14 @@ body {
 }
 
 .envelope.open .letter {
-  height: 340px;
-}
-
-.envelope.open .message {
-  opacity: 1;
+  height: 750px;
+  overflow-y: auto;
 }
 
 h2 {
-  color: #d46a92;
+  color: #1d4ed8;
   margin-bottom: 10px;
+  font-size: 15px;
 }
 
 p {
@@ -87,7 +139,7 @@ p {
 .assinatura {
   margin-top: 15px;
   font-weight: bold;
-  color: #c94f7c;
+  color: #1e40af;
 }
 
 /* ========================= */

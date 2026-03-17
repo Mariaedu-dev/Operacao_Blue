@@ -27,6 +27,6 @@ function soltarConfete() {
 }
 
 function coresAleatorias() {
-  const cores = ["#ff8fab", "#ffc2d1", "#f9bec7", "#ffe066", "#b5ead7"];
+  const cores = ["#3b82f6", "#60a5fa", "#93c5fd", "#bfdbfe", "#818cf8", "#a5b4fc"];
   return cores[Math.floor(Math.random() * cores.length)];
 }
